@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronDown, ChevronUp, Zap, MapPin, Clock, User } from 'lucide-react'
+import { ChevronDown, ChevronUp, Zap, MapPin, Clock, CheckCircle, Package, AlertTriangle } from 'lucide-react'
 import { WORK_ORDERS, TECHNICIAN } from '../../data'
 
 const STATUS_STYLES = {
@@ -16,9 +16,10 @@ const SEVERITY_STYLES = {
   LOW:    'bg-slate-50 text-slate-400 border-slate-200',
 }
 
-export default function WorkOrderMonitoring() {
+export default function WorkOrderMonitoring({ completedWOs = [] }) {
   const [expanded, setExpanded] = useState('WO-2847')
   const wos = Object.values(WORK_ORDERS)
+  const escalations = completedWOs.filter(w => !w.faultConfirmed).length
 
   return (
     <div className="p-8 max-w-5xl">
@@ -31,10 +32,10 @@ export default function WorkOrderMonitoring() {
       {/* Multi-tech summary bar */}
       <div className="grid grid-cols-4 gap-3 mb-5">
         {[
-          { label: 'Techs active today', value: '14', color: 'text-hcsg-navy' },
-          { label: 'AI queries today',   value: '31', color: 'text-hcsg-orange' },
-          { label: 'Coverage-gap zones', value: '3',  color: 'text-hcsg-amber' },
-          { label: 'Escalations open',   value: '1',  color: 'text-hcsg-dark-red' },
+          { label: 'Techs active today',  value: '14',                          color: 'text-hcsg-navy' },
+          { label: 'Completed today',     value: String(completedWOs.length),   color: 'text-green-600' },
+          { label: 'Coverage-gap zones',  value: '3',                           color: 'text-hcsg-amber' },
+          { label: 'Escalations open',    value: String(escalations),           color: escalations > 0 ? 'text-hcsg-dark-red' : 'text-slate-400' },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-xl border border-slate-100 shadow-sm px-4 py-3">
             <p className={`text-xl font-bold ${s.color}`}>{s.value}</p>
@@ -131,6 +132,48 @@ export default function WorkOrderMonitoring() {
           ))}
         </div>
       </div>
+      {/* Completed today */}
+      {completedWOs.length > 0 && (
+        <div className="mt-6 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+            <h2 className="text-hcsg-navy font-semibold text-sm">Completed Today</h2>
+            <span className="bg-green-50 text-green-600 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-100">
+              {completedWOs.length} closed
+            </span>
+          </div>
+          <div className="divide-y divide-slate-50">
+            {completedWOs.map((wo, i) => (
+              <div key={i} className="px-5 py-4 flex items-center gap-4">
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
+                  wo.faultConfirmed ? 'bg-green-50' : 'bg-amber-50'
+                }`}>
+                  {wo.faultConfirmed
+                    ? <CheckCircle size={14} className="text-green-500" />
+                    : <AlertTriangle size={14} className="text-amber-500" />
+                  }
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-slate-700 text-sm font-semibold">{wo.customer}</p>
+                  <p className="text-slate-400 text-xs mt-0.5">{wo.id} · {wo.site}</p>
+                </div>
+                <div className="text-right shrink-0">
+                  <p className={`text-xs font-semibold ${wo.faultConfirmed ? 'text-green-600' : 'text-amber-600'}`}>
+                    {wo.faultConfirmed ? 'Fixed' : 'Escalated'}
+                  </p>
+                  <p className="text-slate-400 text-xs mt-0.5">{wo.completedAt}</p>
+                </div>
+                {wo.partsUsed && (
+                  <div className="flex items-center gap-1 text-slate-400 text-xs shrink-0">
+                    <Package size={11} />
+                    <span className="max-w-[120px] truncate">{wo.partsUsed.split('—')[0].trim()}</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }

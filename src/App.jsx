@@ -27,7 +27,7 @@ import AdminTeam            from './components/admin/AdminTeam'
 
 // Shared
 import RoleSwitcher from './components/shared/RoleSwitcher'
-import { registerWO } from './data'
+import { registerWO, getWO } from './data'
 
 // Nav helpers
 import { Briefcase, Search as SearchIcon, MessageSquare, User, Smartphone, Monitor } from 'lucide-react'
@@ -156,6 +156,7 @@ export default function App() {
   const [chatContext,     setChatContext]     = useState(null)
   const [finalConfidence, setFinalConfidence] = useState(null)
   const [switchingTo,     setSwitchingTo]     = useState(null) // 'admin' | 'technician'
+  const [completedWOs,    setCompletedWOs]    = useState([])
   const [localWOs,        setLocalWOs]        = useState(() => {
     try {
       const saved = localStorage.getItem('hcsg-local-wos')
@@ -243,7 +244,9 @@ export default function App() {
           )}
           {techScreen === 'profile' && (
             <div className="flex flex-col h-full">
-              <div className="flex-1 overflow-y-auto"><Profile onSignOut={() => goTech('login')} /></div>
+              <div className="flex-1 overflow-y-auto">
+                <Profile onSignOut={() => goTech('login')} completedWOs={completedWOs} />
+              </div>
               <BottomNav active="profile" onNavigate={handleNavTab} />
             </div>
           )}
@@ -299,7 +302,25 @@ export default function App() {
             <Notes
               woId={selectedWO}
               onBack={() => goTech('resolution')}
-              onComplete={(data) => { setFindings(data); goTech('complete') }}
+              onComplete={(data) => {
+                setFindings(data)
+                const wo = getWO(selectedWO)
+                if (wo) {
+                  const now = new Date()
+                  const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+                  setCompletedWOs(prev => [...prev, {
+                    id: selectedWO,
+                    customer: wo.customer,
+                    site: wo.site,
+                    equipment: wo.equipment.split('—')[0].trim(),
+                    jobType: wo.jobType,
+                    faultConfirmed: data.faultConfirmed,
+                    partsUsed: data.partsUsed,
+                    completedAt: `Today, ${time}`,
+                  }])
+                }
+                goTech('complete')
+              }}
             />
           )}
           {techScreen === 'complete' && (
@@ -323,7 +344,7 @@ export default function App() {
             <AdminLayout active={adminScreen} onNavigate={setAdminScreen}>
               {adminScreen === 'dashboard'  && <AdminDashboard onNavigate={setAdminScreen} />}
               {adminScreen === 'documents'  && <DocumentManagement />}
-              {adminScreen === 'workorders' && <WorkOrderMonitoring />}
+              {adminScreen === 'workorders' && <WorkOrderMonitoring completedWOs={completedWOs} />}
               {adminScreen === 'analytics'  && <AIAnalytics />}
               {adminScreen === 'team'       && <AdminTeam />}
             </AdminLayout>

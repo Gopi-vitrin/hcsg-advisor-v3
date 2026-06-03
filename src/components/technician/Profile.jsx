@@ -1,4 +1,4 @@
-import { MapPin, Briefcase, ChevronRight, LogOut, Bell, Shield, BookOpen } from 'lucide-react'
+import { MapPin, Briefcase, ChevronRight, LogOut, Bell, Shield, BookOpen, CheckCircle, Package, AlertTriangle } from 'lucide-react'
 import { TECHNICIAN, KNOWLEDGE_BASE } from '../../data'
 
 function SettingRow({ icon, label, value, onClick }) {
@@ -17,7 +17,7 @@ function SettingRow({ icon, label, value, onClick }) {
   )
 }
 
-export default function Profile({ onSignOut }) {
+export default function Profile({ onSignOut, completedWOs = [] }) {
   return (
     <div className="flex flex-col h-full bg-hcsg-navy overflow-y-auto">
 
@@ -37,8 +37,8 @@ export default function Profile({ onSignOut }) {
       {/* Stats row */}
       <div className="mx-4 grid grid-cols-3 gap-2 mb-5">
         {[
-          { label: 'WOs Today', value: '3' },
-          { label: 'Completed', value: '1' },
+          { label: 'WOs Today',  value: String(TECHNICIAN.workOrders.length) },
+          { label: 'Completed',  value: String(completedWOs.length) },
           { label: 'AI Queries', value: '12' },
         ].map(s => (
           <div key={s.label} className="bg-white/5 border border-white/8 rounded-xl py-3 text-center">
@@ -65,6 +65,53 @@ export default function Profile({ onSignOut }) {
         <SettingRow icon={<Shield size={15} className="text-white/50" />}  label="LOTO Reminders"  value="On" />
         <SettingRow icon={<Briefcase size={15} className="text-white/50" />} label="Branch"         value={TECHNICIAN.branch} />
       </div>
+
+      {/* Completed work orders */}
+      {completedWOs.length > 0 && (
+        <div className="mx-4 mb-4">
+          <p className="text-white/40 text-xs uppercase tracking-widest mb-2.5 px-1">
+            Completed Today
+          </p>
+          <div className="space-y-2">
+            {completedWOs.map((wo, i) => (
+              <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <div>
+                    <p className="text-white font-semibold text-sm">{wo.customer}</p>
+                    <p className="text-white/40 text-xs mt-0.5">{wo.id} · {wo.site}</p>
+                  </div>
+                  <div className={`flex items-center gap-1 shrink-0 px-2 py-1 rounded-full text-xs font-semibold ${
+                    wo.faultConfirmed
+                      ? 'bg-green-500/15 text-green-400 border border-green-500/25'
+                      : 'bg-hcsg-amber/15 text-hcsg-amber border border-hcsg-amber/25'
+                  }`}>
+                    {wo.faultConfirmed
+                      ? <><CheckCircle size={10} /> Fixed</>
+                      : <><AlertTriangle size={10} /> Escalated</>
+                    }
+                  </div>
+                </div>
+                <p className="text-white/40 text-xs mb-1">{wo.equipment}</p>
+                {wo.partsUsed && (
+                  <div className="flex items-center gap-1.5 mt-2">
+                    <Package size={11} className="text-hcsg-orange shrink-0" />
+                    <p className="text-white/35 text-xs leading-snug">{wo.partsUsed}</p>
+                  </div>
+                )}
+                <p className="text-white/20 text-xs mt-2">{wo.completedAt}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Empty state */}
+      {completedWOs.length === 0 && (
+        <div className="mx-4 mb-4 bg-white/3 border border-white/8 rounded-2xl px-4 py-5 text-center">
+          <p className="text-white/25 text-xs uppercase tracking-widest mb-1">Completed Today</p>
+          <p className="text-white/20 text-xs">No completed work orders yet</p>
+        </div>
+      )}
 
       {/* Sign out */}
       <div className="mx-4 mb-8">
