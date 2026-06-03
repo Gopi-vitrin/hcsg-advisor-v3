@@ -5,7 +5,7 @@ const BC = { fontFamily: "'Barlow Condensed', sans-serif" }
 
 export default function Profile({ onSignOut }) {
   return (
-    <div className="flex flex-col h-full bg-hcsg-navy overflow-y-auto v2-scroll">
+    <div className="flex flex-col h-full bg-hcsg-bg overflow-y-auto v2-scroll">
 
       {/* Hero */}
       <div className="px-5 pt-6 pb-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>

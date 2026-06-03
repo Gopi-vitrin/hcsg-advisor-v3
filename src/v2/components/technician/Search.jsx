@@ -68,7 +68,7 @@ export default function Search({ onSelectWO }) {
   const hasAny = woRes.length > 0 || kbRes.length > 0
 
   return (
-    <div className="flex flex-col h-full bg-hcsg-navy">
+    <div className="flex flex-col h-full bg-hcsg-bg">
       <div className="px-4 pt-5 pb-3">
         <div className="flex items-center gap-2 mb-3">
           <span className="font-800 text-hcsg-orange" style={BC}>›</span>

@@ -151,7 +151,7 @@ export default function Home({ onSelectWO, onNavigate, activeTab = 'home' }) {
   const today = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).toUpperCase()
 
   return (
-    <div className="flex flex-col h-full bg-hcsg-navy">
+    <div className="flex flex-col h-full bg-hcsg-bg">
 
       {/* Header */}
       <div

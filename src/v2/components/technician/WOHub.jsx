@@ -589,7 +589,7 @@ export default function WOHub({ woId, onBack, onComplete }) {
   const isHigh = wo.priority === 'High'
 
   return (
-    <div className="flex flex-col h-full bg-hcsg-navy">
+    <div className="flex flex-col h-full bg-hcsg-bg">
       {/* Header */}
       <div className="flex items-center gap-3 px-4 pt-4 pb-3 shrink-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <button onClick={onBack} className="v2-touch shrink-0" style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: 4 }}>
