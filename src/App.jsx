@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // Technician screens
 import Login            from './components/technician/Login'
@@ -28,7 +28,76 @@ import AdminTeam            from './components/admin/AdminTeam'
 import RoleSwitcher from './components/shared/RoleSwitcher'
 
 // Nav helpers
-import { Briefcase, Search as SearchIcon, MessageSquare, User } from 'lucide-react'
+import { Briefcase, Search as SearchIcon, MessageSquare, User, Smartphone, Monitor } from 'lucide-react'
+import { TECHNICIAN, ADMIN } from './data'
+
+// ── Role-switch curtain overlay ────────────────────────────────────────────
+function SwitchOverlay({ targetRole }) {
+  const [ty, setTy] = useState('100%')
+  const toAdmin = targetRole === 'admin'
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setTy('0%'), 16)
+    const t2 = setTimeout(() => setTy('-100%'), 1100)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
+  }, [])
+
+  return (
+    <div
+      className="fixed inset-0 z-[200] flex flex-col items-center justify-center gap-7 select-none"
+      style={{
+        background: toAdmin ? '#f8fafc' : '#011e41',
+        transform: `translateY(${ty})`,
+        transition: ty === '-100%'
+          ? 'transform 420ms cubic-bezier(0.4, 0, 1, 1)'
+          : 'transform 420ms cubic-bezier(0.16, 1, 0.3, 1)',
+      }}
+    >
+      {/* Logo */}
+      <img
+        src="/assets/hcsg-logo.svg"
+        alt="HCSG"
+        className={`h-8 ${toAdmin ? '' : 'brightness-0 invert opacity-30'}`}
+      />
+
+      {/* Label */}
+      <p className={`text-xs font-semibold uppercase tracking-[0.2em] ${toAdmin ? 'text-slate-400' : 'text-white/30'}`}>
+        {toAdmin ? 'Switching to Admin Console' : 'Switching to Field View'}
+      </p>
+
+      {/* Persona card */}
+      <div className={`flex items-center gap-4 px-6 py-4 rounded-2xl ${
+        toAdmin
+          ? 'bg-white border border-slate-200 shadow-sm'
+          : 'bg-white/8 border border-white/12'
+      }`}>
+        <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white text-lg font-bold shrink-0 shadow-lg`}
+          style={{ background: '#e65e25' }}>
+          {toAdmin ? ADMIN.avatar : TECHNICIAN.avatar}
+        </div>
+        <div>
+          <p className={`font-bold text-base ${toAdmin ? 'text-slate-800' : 'text-white'}`}>
+            {toAdmin ? ADMIN.name : TECHNICIAN.name}
+          </p>
+          <p className={`text-sm mt-0.5 ${toAdmin ? 'text-slate-500' : 'text-white/50'}`}>
+            {toAdmin ? ADMIN.role : TECHNICIAN.role}
+          </p>
+          <p className={`text-xs mt-0.5 ${toAdmin ? 'text-slate-400' : 'text-white/30'}`}>
+            {toAdmin ? `${ADMIN.branch} · 32 branches` : `${TECHNICIAN.branch} · Fast Track`}
+          </p>
+        </div>
+      </div>
+
+      {/* Mode icon */}
+      <div className={`flex items-center gap-2 ${toAdmin ? 'text-slate-400' : 'text-white/25'}`}>
+        {toAdmin
+          ? <><Monitor size={14} /><span className="text-xs">Web dashboard</span></>
+          : <><Smartphone size={14} /><span className="text-xs">Mobile field app</span></>
+        }
+      </div>
+    </div>
+  )
+}
 
 function BottomNav({ active, onNavigate }) {
   const items = [
@@ -84,6 +153,7 @@ export default function App() {
   const [findings,        setFindings]        = useState(null)
   const [chatContext,     setChatContext]     = useState(null)
   const [finalConfidence, setFinalConfidence] = useState(null)
+  const [switchingTo,     setSwitchingTo]     = useState(null) // 'admin' | 'technician'
 
   // --- Technician navigation ---
   const goTech = (s) => setTechScreen(s)
@@ -102,9 +172,12 @@ export default function App() {
   }
 
   function handleRoleSwitch(newRole) {
-    setRole(newRole)
-    // Skip login screens on switch if already visited
-    if (newRole === 'admin' && adminScreen === 'admin-login') setAdminScreen('admin-login')
+    if (newRole === role || switchingTo) return
+    setSwitchingTo(newRole)
+    // Switch the actual role mid-animation (while overlay is covering the screen)
+    setTimeout(() => setRole(newRole), 700)
+    // Clear overlay after exit animation completes
+    setTimeout(() => setSwitchingTo(null), 1560)
   }
 
   // --- Render ---
@@ -220,6 +293,9 @@ export default function App() {
 
       {/* Role switcher — always visible */}
       <RoleSwitcher role={role} onSwitch={handleRoleSwitch} />
+
+      {/* Dramatic switch overlay */}
+      {switchingTo && <SwitchOverlay targetRole={switchingTo} />}
     </div>
   )
 }
