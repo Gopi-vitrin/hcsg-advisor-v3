@@ -32,7 +32,7 @@ export default function Analytics() {
           { icon: TrendingUp,  label: 'FIRST-VISIT RATE',   value: ANALYTICS.firstVisitResolutionRate,  bg: '#16a34a' },
           { icon: TrendingUp,  label: 'EST. SAVINGS',       value: ANALYTICS.estimatedAnnualSavings,    bg: '#653a15' },
         ].map(({ icon: Icon, label, value, bg }) => (
-          <div key={label} className="bg-white p-5" style={{ borderRadius: 6, border: '1px solid #e2e8f0', borderTop: `3px solid ${bg}` }}>
+          <div key={label} className="bg-white p-5" style={{ borderRadius: 6, border: '1px solid #E0D7CE', borderTop: `3px solid ${bg}` }}>
             <Icon size={16} style={{ color: bg, marginBottom: 8 }} />
             <p className="font-800" style={{ ...BC, fontSize: 24, color: '#011e41', letterSpacing: '-0.3px' }}>{value}</p>
             <p className="font-700 text-slate-400 text-xs tracking-widest mt-0.5" style={BC}>{label}</p>
@@ -53,7 +53,7 @@ export default function Analytics() {
 
       <div className="grid grid-cols-2 gap-6 mb-6">
         {/* Top queries */}
-        <div className="bg-white p-5" style={{ borderRadius: 6, border: '1px solid #e2e8f0', borderTop: '3px solid #e65e25' }}>
+        <div className="bg-white p-5" style={{ borderRadius: 6, border: '1px solid #E0D7CE', borderTop: '3px solid #e65e25' }}>
           <p className="font-800 text-hcsg-navy text-sm mb-5" style={BC}>TOP AI QUERIES THIS MONTH</p>
           <div className="space-y-3">
             {ANALYTICS.topQuestions.map((q, i) => (
@@ -71,7 +71,7 @@ export default function Analytics() {
         </div>
 
         {/* Monthly volume */}
-        <div className="bg-white p-5" style={{ borderRadius: 6, border: '1px solid #e2e8f0', borderTop: '3px solid #011e41' }}>
+        <div className="bg-white p-5" style={{ borderRadius: 6, border: '1px solid #E0D7CE', borderTop: '3px solid #011e41' }}>
           <p className="font-800 text-hcsg-navy text-sm mb-5" style={BC}>QUERY VOLUME — LAST 9 MONTHS</p>
           <div className="flex items-end gap-1.5 h-28 mb-2">
             {ANALYTICS.queriesByMonth.map((v, i) => {
@@ -93,12 +93,12 @@ export default function Analytics() {
 
       {/* KB health */}
       <div className="grid grid-cols-2 gap-6">
-        <div className="bg-white p-5" style={{ borderRadius: 6, border: '1px solid #e2e8f0' }}>
+        <div className="bg-white p-5" style={{ borderRadius: 6, border: '1px solid #E0D7CE' }}>
           <div className="flex items-center gap-2 mb-4">
             <BookOpen size={15} className="text-hcsg-blue" />
             <p className="font-800 text-hcsg-navy text-sm" style={BC}>MOST ACCESSED MANUAL</p>
           </div>
-          <div className="px-4 py-3 mb-4" style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 4 }}>
+          <div className="px-4 py-3 mb-4" style={{ background: '#FFF3EC', border: '1px solid #F5C9A0', borderRadius: 4 }}>
             <p className="font-800 text-hcsg-navy" style={{ ...BC, fontSize: 18 }}>{ANALYTICS.mostAccessedManual.toUpperCase()}</p>
             <p className="text-slate-500 text-sm mt-0.5" style={{ fontFamily: "'Barlow', sans-serif" }}>{ANALYTICS.mostAccessedCount} queries this month</p>
           </div>

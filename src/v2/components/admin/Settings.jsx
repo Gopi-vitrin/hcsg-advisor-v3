@@ -16,8 +16,8 @@ const ROLES = [
 
 function Section({ label, icon: Icon, children }) {
   return (
-    <div className="bg-white mb-5" style={{ borderRadius: 6, border: '1px solid #e2e8f0', borderTop: '3px solid #e65e25' }}>
-      <div className="flex items-center gap-2 px-5 py-4" style={{ borderBottom: '1px solid #f0f2f5' }}>
+    <div className="bg-white mb-5" style={{ borderRadius: 6, border: '1px solid #E0D7CE', borderTop: '3px solid #e65e25' }}>
+      <div className="flex items-center gap-2 px-5 py-4" style={{ borderBottom: '1px solid #FAF8F5' }}>
         <Icon size={14} className="text-hcsg-orange" />
         <p className="font-800 text-hcsg-navy text-sm" style={BC}>{label}</p>
       </div>
@@ -40,7 +40,7 @@ export default function Settings() {
       <Section label="INTEGRATIONS" icon={Link}>
         <div className="space-y-3">
           {INTEGRATIONS.map(int => (
-            <div key={int.name} className="flex items-center gap-4 px-4 py-3" style={{ border: '1px solid #f0f2f5', borderRadius: 4 }}>
+            <div key={int.name} className="flex items-center gap-4 px-4 py-3" style={{ border: '1px solid #FAF8F5', borderRadius: 4 }}>
               <div className="w-9 h-9 flex items-center justify-center shrink-0" style={{ background: int.color, borderRadius: 4 }}>
                 <Link size={14} className="text-white" />
               </div>
@@ -48,7 +48,7 @@ export default function Settings() {
                 <p className="text-slate-700 font-semibold text-sm" style={{ fontFamily: "'Barlow', sans-serif" }}>{int.name}</p>
                 <p className="text-slate-400 text-xs mt-0.5" style={{ fontFamily: "'Barlow', sans-serif" }}>{int.desc}</p>
               </div>
-              <span className="text-xs font-700 px-2.5 py-1" style={{ ...BC, borderRadius: 3, background: int.status === 'CONNECTED' ? '#f0fdf4' : '#fffbeb', color: int.status === 'CONNECTED' ? '#16a34a' : '#d97706', border: `1px solid ${int.status === 'CONNECTED' ? '#bbf7d0' : '#fde68a'}` }}>
+              <span className="text-xs font-700 px-2.5 py-1" style={{ ...BC, borderRadius: 3, background: int.status === 'CONNECTED' ? '#f0fdf4' : 'rgba(245,165,36,0.06)', color: int.status === 'CONNECTED' ? '#16a34a' : '#c47d1a', border: `1px solid ${int.status === 'CONNECTED' ? '#bbf7d0' : 'rgba(245,165,36,0.25)'}` }}>
                 {int.status}
               </span>
             </div>
@@ -59,7 +59,7 @@ export default function Settings() {
       <Section label="ROLES & PERMISSIONS" icon={Shield}>
         <div className="space-y-2">
           {ROLES.map(r => (
-            <div key={r.role} className="flex items-center gap-4 px-4 py-3" style={{ border: '1px solid #f0f2f5', borderRadius: 4 }}>
+            <div key={r.role} className="flex items-center gap-4 px-4 py-3" style={{ border: '1px solid #FAF8F5', borderRadius: 4 }}>
               <p className="font-700 text-hcsg-navy text-sm w-40 shrink-0" style={BC}>{r.role.toUpperCase()}</p>
               <p className="text-slate-500 text-xs flex-1" style={{ fontFamily: "'Barlow', sans-serif" }}>{r.access}</p>
             </div>
@@ -75,7 +75,7 @@ export default function Settings() {
             { l: 'Weekly AI usage summary', v: 'ON' },
             { l: 'Document indexing complete', v: 'ON' },
           ].map(n => (
-            <div key={n.l} className="flex items-center justify-between px-4 py-3" style={{ border: '1px solid #f0f2f5', borderRadius: 4 }}>
+            <div key={n.l} className="flex items-center justify-between px-4 py-3" style={{ border: '1px solid #FAF8F5', borderRadius: 4 }}>
               <p className="text-slate-600 text-sm" style={{ fontFamily: "'Barlow', sans-serif" }}>{n.l}</p>
               <div className="w-9 h-5 flex items-center justify-end px-1 cursor-pointer" style={{ background: '#e65e25', borderRadius: 12 }}>
                 <div className="w-3.5 h-3.5 bg-white rounded-full" />
@@ -92,7 +92,7 @@ export default function Settings() {
             { l: 'Data retention period', v: '7 YEARS' },
             { l: 'AI query logging', v: 'ENABLED' },
           ].map(r => (
-            <div key={r.l} className="flex items-center justify-between px-4 py-3" style={{ border: '1px solid #f0f2f5', borderRadius: 4 }}>
+            <div key={r.l} className="flex items-center justify-between px-4 py-3" style={{ border: '1px solid #FAF8F5', borderRadius: 4 }}>
               <p className="text-slate-600 text-sm" style={{ fontFamily: "'Barlow', sans-serif" }}>{r.l}</p>
               <span className="font-700 text-xs text-hcsg-navy" style={BC}>{r.v}</span>
             </div>

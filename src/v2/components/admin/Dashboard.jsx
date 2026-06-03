@@ -98,7 +98,7 @@ export default function Dashboard({ onNavigate }) {
           </div>
           <div className="space-y-2">
             {wos.map(wo => (
-              <div key={wo.id} className="flex items-center gap-3 px-3 py-2.5" style={{ borderRadius: 4, border: '1px solid #f0f2f5' }}>
+              <div key={wo.id} className="flex items-center gap-3 px-3 py-2.5" style={{ borderRadius: 4, border: '1px solid #FAF8F5' }}>
                 <span className="text-xs font-700 px-1.5 py-0.5" style={{ ...BC, borderRadius: 3, background: wo.priority === 'High' ? '#b82105' : '#f5a524', color: wo.priority === 'High' ? 'white' : '#011e41' }}>{wo.priority.toUpperCase()}</span>
                 <span className="text-slate-700 text-sm font-semibold flex-1" style={{ fontFamily: "'Barlow', sans-serif" }}>{wo.customer}</span>
                 <span className="text-slate-400 text-xs" style={{ fontFamily: "'Barlow', sans-serif" }}>{wo.site}</span>

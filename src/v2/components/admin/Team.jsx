@@ -29,7 +29,7 @@ function InviteModal({ onClose, onInvited }) {
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
       <div className="bg-white w-full max-w-md overflow-hidden" style={{ borderRadius: 6, borderTop: '3px solid #e65e25' }}>
-        <div className="flex items-center justify-between px-6 py-4" style={{ borderBottom: '1px solid #f0f2f5' }}>
+        <div className="flex items-center justify-between px-6 py-4" style={{ borderBottom: '1px solid #FAF8F5' }}>
           <div className="flex items-center gap-3">
             <Smartphone size={15} className="text-hcsg-orange" />
             <div>
@@ -45,25 +45,25 @@ function InviteModal({ onClose, onInvited }) {
               {[{l:'FULL NAME',k:'name',t:'text',p:'e.g. Michael Tran'},{l:'WORK EMAIL',k:'email',t:'email',p:'mtran@hoistcrane.com'}].map(f => (
                 <div key={f.k}>
                   <p className="font-700 text-slate-400 text-xs tracking-widest uppercase mb-1.5" style={BC}>{f.l}</p>
-                  <input type={f.t} value={form[f.k]} onChange={e => set(f.k, e.target.value)} placeholder={f.p} className="w-full px-3 py-2.5 text-slate-700 text-sm" style={{ border: '1px solid #e2e8f0', borderRadius: 4, fontFamily: "'Barlow', sans-serif" }} />
+                  <input type={f.t} value={form[f.k]} onChange={e => set(f.k, e.target.value)} placeholder={f.p} className="w-full px-3 py-2.5 text-slate-700 text-sm" style={{ border: '1px solid #E0D7CE', borderRadius: 4, fontFamily: "'Barlow', sans-serif" }} />
                 </div>
               ))}
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <p className="font-700 text-slate-400 text-xs tracking-widest uppercase mb-1.5" style={BC}>BRANCH</p>
-                  <select value={form.branch} onChange={e => set('branch', e.target.value)} className="w-full px-3 py-2.5 text-slate-700 text-sm bg-white" style={{ border: '1px solid #e2e8f0', borderRadius: 4 }}>
+                  <select value={form.branch} onChange={e => set('branch', e.target.value)} className="w-full px-3 py-2.5 text-slate-700 text-sm bg-white" style={{ border: '1px solid #E0D7CE', borderRadius: 4 }}>
                     <option value="">Select…</option>
                     {BRANCHES.map(b => <option key={b}>{b}</option>)}
                   </select>
                 </div>
                 <div>
                   <p className="font-700 text-slate-400 text-xs tracking-widest uppercase mb-1.5" style={BC}>ROLE</p>
-                  <select value={form.role} onChange={e => set('role', e.target.value)} className="w-full px-3 py-2.5 text-slate-700 text-sm bg-white" style={{ border: '1px solid #e2e8f0', borderRadius: 4 }}>
+                  <select value={form.role} onChange={e => set('role', e.target.value)} className="w-full px-3 py-2.5 text-slate-700 text-sm bg-white" style={{ border: '1px solid #E0D7CE', borderRadius: 4 }}>
                     {ROLES.map(r => <option key={r}>{r}</option>)}
                   </select>
                 </div>
               </div>
-              <div className="flex items-start gap-2 p-3" style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 4 }}>
+              <div className="flex items-start gap-2 p-3" style={{ background: '#FFF3EC', border: '1px solid #F5C9A0', borderRadius: 4 }}>
                 <div className="w-5 h-5 flex items-center justify-center shrink-0 mt-0.5" style={{ background: '#6264A7', borderRadius: 3 }}>
                   <svg width="10" height="10" viewBox="0 0 18 18" fill="none"><path d="M11.5 5.5C11.5 6.88 10.38 8 9 8C7.62 8 6.5 6.88 6.5 5.5C6.5 4.12 7.62 3 9 3C10.38 3 11.5 4.12 11.5 5.5Z" fill="white"/><path d="M4 9V13C4 13.55 4.45 14 5 14H11C11.55 14 12 13.55 12 13V9C12 8.45 11.55 8 11 8H5C4.45 8 4 8.45 4 9Z" fill="white"/></svg>
                 </div>
@@ -85,9 +85,9 @@ function InviteModal({ onClose, onInvited }) {
           )}
         </div>
         {stage === 'form' && (
-          <div className="px-6 py-4 flex justify-end gap-2" style={{ borderTop: '1px solid #f0f2f5' }}>
+          <div className="px-6 py-4 flex justify-end gap-2" style={{ borderTop: '1px solid #FAF8F5' }}>
             <button onClick={onClose} className="px-4 py-2 text-slate-500 text-sm">Cancel</button>
-            <button onClick={send} disabled={!valid} className="flex items-center gap-2 px-5 py-2 text-sm font-700 text-white" style={{ ...BC, background: valid ? '#e65e25' : '#e2e8f0', color: valid ? 'white' : '#94a3b8', borderRadius: 4 }}>
+            <button onClick={send} disabled={!valid} className="flex items-center gap-2 px-5 py-2 text-sm font-700 text-white" style={{ ...BC, background: valid ? '#e65e25' : '#E0D7CE', color: valid ? 'white' : '#9A8B7A', borderRadius: 4 }}>
               <Send size={13} />SEND INVITATION
             </button>
           </div>
@@ -137,18 +137,18 @@ export default function Team() {
           { l:'USING AI THIS MONTH',v: all.filter(t=>t.queries>0).length },
           { l:'AVG QUERIES / TECH', v: Math.round(all.reduce((s,t)=>s+t.queries,0)/all.length)||0 },
         ].map(s => (
-          <div key={s.l} className="bg-white px-4 py-3" style={{ borderRadius: 6, border: '1px solid #e2e8f0', borderTop: '3px solid #011e41' }}>
+          <div key={s.l} className="bg-white px-4 py-3" style={{ borderRadius: 6, border: '1px solid #E0D7CE', borderTop: '3px solid #011e41' }}>
             <p className="font-800 text-hcsg-navy text-2xl" style={BC}>{s.v}</p>
             <p className="font-700 text-slate-400 text-xs tracking-widest mt-0.5" style={BC}>{s.l}</p>
           </div>
         ))}
       </div>
 
-      <div className="bg-white overflow-hidden" style={{ borderRadius: 6, border: '1px solid #e2e8f0', borderTop: '3px solid #e65e25' }}>
-        <div className="px-5 py-4" style={{ borderBottom: '1px solid #f0f2f5' }}>
+      <div className="bg-white overflow-hidden" style={{ borderRadius: 6, border: '1px solid #E0D7CE', borderTop: '3px solid #e65e25' }}>
+        <div className="px-5 py-4" style={{ borderBottom: '1px solid #FAF8F5' }}>
           <p className="font-800 text-slate-700 text-sm" style={BC}>TECHNICIAN ROSTER</p>
         </div>
-        <div className="divide-y" style={{ borderColor: '#f8fafc' }}>
+        <div className="divide-y" style={{ borderColor: '#FAF8F5' }}>
           {all.map((t, i) => (
             <div key={i} className="flex items-center gap-4 px-5 py-4 hover:bg-slate-50 transition-colors">
               <div className="w-9 h-9 flex items-center justify-center bg-hcsg-navy font-800 text-white text-xs shrink-0" style={{ ...BC, borderRadius: 4 }}>{t.avatar}</div>
@@ -166,14 +166,14 @@ export default function Team() {
                 <p className="font-800 text-slate-700 text-sm" style={BC}>{t.wo}</p>
                 <p className="text-slate-400 text-xs" style={BC}>OPEN WOS</p>
               </div>
-              <span className="flex items-center gap-1.5 text-xs font-700 px-2.5 py-1 shrink-0" style={{ ...BC, borderRadius: 3, background: t.status === 'active' ? '#f0fdf4' : '#f8fafc', color: t.status === 'active' ? '#16a34a' : '#94a3b8', border: `1px solid ${t.status === 'active' ? '#bbf7d0' : '#e2e8f0'}` }}>
+              <span className="flex items-center gap-1.5 text-xs font-700 px-2.5 py-1 shrink-0" style={{ ...BC, borderRadius: 3, background: t.status === 'active' ? '#f0fdf4' : '#FAF8F5', color: t.status === 'active' ? '#16a34a' : '#9A8B7A', border: `1px solid ${t.status === 'active' ? '#bbf7d0' : '#E0D7CE'}` }}>
                 <span className={`w-1.5 h-1.5 rounded-full ${t.status === 'active' ? 'bg-green-400' : 'bg-slate-300'}`} />
                 {t.status === 'active' ? 'ACTIVE' : 'OFFLINE'}
               </span>
             </div>
           ))}
         </div>
-        <div className="px-5 py-3" style={{ borderTop: '1px solid #f8fafc', background: '#f8fafc' }}>
+        <div className="px-5 py-3" style={{ borderTop: '1px solid #FAF8F5', background: '#FAF8F5' }}>
           <p className="text-slate-400 text-xs" style={{ fontFamily: "'Barlow', sans-serif" }}>Gulf Coast Region · 375 technicians total across 32 branches</p>
         </div>
       </div>
