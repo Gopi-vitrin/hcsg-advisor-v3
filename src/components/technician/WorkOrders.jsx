@@ -71,7 +71,7 @@ function WorkOrderCard({ wo, onTap, isHero }) {
 }
 
 export default function WorkOrders({ onSelectWO, onNavigate, onNewWO, localWOs = [], activeTab = 'jobs' }) {
-  const dispatched = TECHNICIAN.workOrders.map(id => WORK_ORDERS[id])
+  const dispatched = TECHNICIAN.workOrders.map(id => WORK_ORDERS[id]).filter(Boolean)
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
 
   return (
