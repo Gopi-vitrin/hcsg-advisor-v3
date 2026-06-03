@@ -1,4 +1,4 @@
-import { Zap, MapPin, Clock, ChevronRight, Search, MessageSquare, User, Briefcase, Plus } from 'lucide-react'
+import { MapPin, Clock, ChevronRight, Search, MessageSquare, User, Briefcase, Plus } from 'lucide-react'
 import { TECHNICIAN, WORK_ORDERS } from '../../data'
 
 const STATUS_STYLES = {
@@ -29,17 +29,9 @@ function WorkOrderCard({ wo, onTap, isHero }) {
             <span className="text-hcsg-orange text-xs font-semibold">● NOW</span>
           )}
         </div>
-        <div className="flex items-center gap-2">
-          {wo.aiReady && (
-            <span className="flex items-center gap-1 bg-green-500/15 text-green-400 border border-green-500/25 text-xs font-semibold px-2 py-0.5 rounded-full">
-              <Zap size={10} fill="currentColor" />
-              AI Ready
-            </span>
-          )}
-          <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${PRIORITY_STYLES[wo.priority]}`}>
-            {wo.priority.toUpperCase()}
-          </span>
-        </div>
+        <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${PRIORITY_STYLES[wo.priority]}`}>
+          {wo.priority.toUpperCase()}
+        </span>
       </div>
 
       {/* Row 2 — Customer */}

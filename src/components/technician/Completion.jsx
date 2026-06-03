@@ -39,44 +39,60 @@ export default function Completion({ woId, findings, finalConfidence, onReturn }
           </div>
 
           {/* AI predicted → Tech outcome */}
-          <div className="grid grid-cols-2 divide-x divide-white/8">
+          {topPrediction ? (
+            <div className="grid grid-cols-2 divide-x divide-white/8">
 
-            {/* Left: AI prediction */}
-            <div className="px-4 py-3 space-y-1">
-              <p className="text-white/30 text-xs uppercase tracking-widest mb-1.5">AI Predicted</p>
-              <p className="text-white/80 text-xs font-medium leading-snug">{topPrediction.fault}</p>
-              <div className="flex items-center gap-1.5 mt-1">
-                <div className="h-1 w-10 bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-green-500 rounded-full" style={{ width: `${topPrediction.confidence}%` }} />
+              {/* Left: AI prediction */}
+              <div className="px-4 py-3 space-y-1">
+                <p className="text-white/30 text-xs uppercase tracking-widest mb-1.5">AI Predicted</p>
+                <p className="text-white/80 text-xs font-medium leading-snug">{topPrediction.fault}</p>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <div className="h-1 w-10 bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-green-500 rounded-full" style={{ width: `${topPrediction.confidence}%` }} />
+                  </div>
+                  <span className="text-white/35 text-xs">{topPrediction.confidence}%</span>
+                  <span className="text-white/20 text-xs">→</span>
+                  <span className={`text-xs font-bold ${confirmed ? 'text-green-400' : 'text-hcsg-amber'}`}>
+                    {finalConfidence ?? (confirmed ? 99 : '—')}%
+                  </span>
                 </div>
-                <span className="text-white/35 text-xs">{topPrediction.confidence}%</span>
-                <span className="text-white/20 text-xs">→</span>
-                <span className={`text-xs font-bold ${confirmed ? 'text-green-400' : 'text-hcsg-amber'}`}>
-                  {finalConfidence ?? (confirmed ? 99 : '—')}%
-                </span>
+              </div>
+
+              {/* Right: Tech outcome */}
+              <div className="px-4 py-3 space-y-1">
+                <p className="text-white/30 text-xs uppercase tracking-widest mb-1.5">Tech Outcome</p>
+                {confirmed ? (
+                  <>
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle size={12} className="text-green-400 shrink-0" />
+                      <p className="text-green-400 text-xs font-semibold">Confirmed on-site</p>
+                    </div>
+                    <p className="text-white/50 text-xs leading-snug mt-1">
+                      {findings?.partsUsed || wo.parts}
+                    </p>
+                  </>
+                ) : (
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-hcsg-amber text-xs font-semibold">⚠ Escalated</span>
+                  </div>
+                )}
               </div>
             </div>
-
-            {/* Right: Tech outcome */}
+          ) : (
+            /* No AI prediction — manually created WO */
             <div className="px-4 py-3 space-y-1">
               <p className="text-white/30 text-xs uppercase tracking-widest mb-1.5">Tech Outcome</p>
-              {confirmed ? (
-                <>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle size={12} className="text-green-400 shrink-0" />
-                    <p className="text-green-400 text-xs font-semibold">Confirmed on-site</p>
-                  </div>
-                  <p className="text-white/50 text-xs leading-snug mt-1">
-                    {findings?.partsUsed || wo.parts}
-                  </p>
-                </>
-              ) : (
-                <div className="flex items-center gap-1.5">
-                  <span className="text-hcsg-amber text-xs font-semibold">⚠ Escalated</span>
-                </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle size={12} className="text-green-400 shrink-0" />
+                <p className="text-green-400 text-xs font-semibold">
+                  {confirmed ? 'Documented on-site' : 'Escalated'}
+                </p>
+              </div>
+              {findings?.partsUsed && (
+                <p className="text-white/50 text-xs leading-snug mt-1">{findings.partsUsed}</p>
               )}
             </div>
-          </div>
+          )}
 
           {/* Divider */}
           <div className="border-t border-white/8" />
