@@ -127,7 +127,12 @@ export default function App() {
           )}
           {techScreen === 'chat' && (
             <div className="flex flex-col h-full">
-              <div className="flex-1 overflow-hidden"><Chat contextWoId={chatContext} /></div>
+              <div className="flex-1 overflow-hidden">
+                <Chat
+                  contextWoId={chatContext}
+                  onBack={chatContext ? () => goTech('predictions') : null}
+                />
+              </div>
               <BottomNav active="chat" onNavigate={handleNavTab} />
             </div>
           )}

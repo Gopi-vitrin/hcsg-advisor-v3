@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Send, Zap, BookOpen } from 'lucide-react'
+import { Send, Zap, BookOpen, ArrowLeft } from 'lucide-react'
 import { TECHNICIAN, WORK_ORDERS } from '../../data'
 
 const CANNED = {
@@ -25,7 +25,7 @@ function getBotReply(input) {
 
 const SUGGESTIONS = ['Hook drift after stopping', 'LOTO procedure', 'Wire rope inspection', 'Contactor replacement']
 
-export default function Chat({ onSelectWO, contextWoId }) {
+export default function Chat({ onSelectWO, contextWoId, onBack }) {
   const contextLine = contextWoId
     ? ` I can see you're working on ${contextWoId}. Ask me anything specific to that job, or any general equipment question.`
     : ' Ask me anything about your equipment — I\'ll search the indexed manuals and pull the relevant section.'
@@ -65,7 +65,15 @@ export default function Chat({ onSelectWO, contextWoId }) {
 
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-white/10">
-        <div className="flex items-center gap-2.5">
+        {onBack && (
+          <button
+            onClick={onBack}
+            className="w-9 h-9 flex items-center justify-center rounded-full bg-white/8 active:bg-white/15 transition-colors mr-1 shrink-0"
+          >
+            <ArrowLeft size={18} className="text-white" />
+          </button>
+        )}
+        <div className="flex items-center gap-2.5 flex-1">
           {/* Microsoft Teams icon */}
           <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#6264A7' }}>
             <svg width="14" height="14" viewBox="0 0 18 18" fill="none">

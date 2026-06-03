@@ -15,7 +15,7 @@ const CONFIDENCE_COLOR = (score) => {
 }
 
 function PredictionCard({ prediction, rank, isTop, animDelay }) {
-  const [citationOpen, setCitationOpen] = useState(false)
+  const [citationOpen, setCitationOpen] = useState(isTop)
   const [warningOpen,  setWarningOpen]  = useState(isTop)
   // Confidence bar animates from 0 → actual value after mount
   const [barWidth, setBarWidth] = useState(0)
