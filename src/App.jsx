@@ -156,16 +156,28 @@ export default function App() {
   const [chatContext,     setChatContext]     = useState(null)
   const [finalConfidence, setFinalConfidence] = useState(null)
   const [switchingTo,     setSwitchingTo]     = useState(null) // 'admin' | 'technician'
-  const [localWOs,        setLocalWOs]        = useState([])
+  const [localWOs,        setLocalWOs]        = useState(() => {
+    try {
+      const saved = localStorage.getItem('hcsg-local-wos')
+      if (saved) {
+        const wos = JSON.parse(saved)
+        wos.forEach(wo => registerWO(wo))
+        return wos
+      }
+    } catch {}
+    return []
+  })
+
+  useEffect(() => {
+    try { localStorage.setItem('hcsg-local-wos', JSON.stringify(localWOs)) } catch {}
+  }, [localWOs])
 
   // --- Technician navigation ---
   const goTech = (s) => setTechScreen(s)
 
   function handleSelectWO(woId)  { setSelectedWO(woId); goTech('wo-detail') }
 
-  // Clear stale context when navigating to Chat via bottom nav
   function handleNavTab(tab) {
-    if (tab === 'chat') setChatContext(null)
     goTech(NAV_MAP[tab])
   }
 
@@ -319,8 +331,12 @@ export default function App() {
         </>
       )}
 
-      {/* Role switcher — always visible */}
-      <RoleSwitcher role={role} onSwitch={handleRoleSwitch} />
+      {/* Role switcher — dims during active WO chat */}
+      <RoleSwitcher
+        role={role}
+        onSwitch={handleRoleSwitch}
+        disabled={techScreen === 'chat' && !!chatContext}
+      />
 
       {/* Dramatic switch overlay */}
       {switchingTo && <SwitchOverlay targetRole={switchingTo} />}

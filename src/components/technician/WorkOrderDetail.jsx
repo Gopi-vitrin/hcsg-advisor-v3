@@ -100,21 +100,19 @@ export default function WorkOrderDetail({ woId, onBack, onGetDiagnosis, onViewHi
               Get AI Diagnosis
             </button>
 
-            <div className="flex items-center gap-2">
-              <button
-                onClick={onViewHistory}
-                className="flex-1 flex items-center justify-center gap-1.5 text-white/40 text-sm py-2 active:text-white/60 transition-colors"
-              >
-                Equipment History <ChevronRight size={14} />
-              </button>
-              <div className="w-px h-4 bg-white/10" />
-              <button
-                onClick={onRecordFindings}
-                className="flex-1 flex items-center justify-center gap-1.5 text-white/40 text-sm py-2 active:text-white/60 transition-colors"
-              >
-                Skip AI <ChevronRight size={14} />
-              </button>
-            </div>
+            <button
+              onClick={onRecordFindings}
+              className="w-full flex items-center justify-center gap-2 bg-white/8 border border-white/15 text-white/75 font-semibold text-sm py-3.5 rounded-2xl active:bg-white/15 active:scale-[0.98] transition-all duration-150"
+            >
+              <ClipboardList size={16} />
+              Skip AI — Record Findings
+            </button>
+            <button
+              onClick={onViewHistory}
+              className="w-full flex items-center justify-center gap-1 text-white/30 text-xs py-1 active:text-white/50 transition-colors"
+            >
+              View Equipment History <ChevronRight size={11} />
+            </button>
           </>
         ) : (
           /* Manually-created WO — direct path */
