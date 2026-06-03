@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(npx create-vite@latest . --template react)",
+      "Bash(Get-ChildItem -Force \"C:\\\\Users\\\\COMPUTER\\\\OneDrive\\\\Desktop\\\\hoistandcranev2\")",
+      "Bash(Select-Object Name, Mode)",
+      "PowerShell(cd \"C:\\\\Users\\\\COMPUTER\\\\OneDrive\\\\Desktop\\\\hoistandcranev2\"; $input = \"y`n\"; $proc = Start-Process -FilePath \"cmd.exe\" -ArgumentList \"/c echo y | npx create-vite@latest . --template react\" -WorkingDirectory \"C:\\\\Users\\\\COMPUTER\\\\OneDrive\\\\Desktop\\\\hoistandcranev2\" -PassThru -Wait -NoNewWindow 2>&1; Write-Output \"Done: $\\($proc.ExitCode\\)\")",
+      "PowerShell(Get-ChildItem -Recurse -Force \"C:\\\\Users\\\\COMPUTER\\\\OneDrive\\\\Desktop\\\\hoistandcranev2\" | Where-Object { $_.Name -ne \".claude\" } | Select-Object FullName)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "PowerShell(Test-NetConnection *)",
+      "Bash(curl *)",
+      "Bash(npx playwright *)",
+      "Bash(node *)",
+      "Bash(gh auth *)",
+      "Bash(vercel --version)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}
