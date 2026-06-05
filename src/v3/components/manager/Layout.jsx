@@ -83,7 +83,7 @@ export default function ManagerLayout({ onSwitchToTech }) {
       </aside>
 
       {/* Main */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto flex flex-col">
         {screen === 'dashboard' && <Dashboard onViewTech={goToDetail} />}
         {screen === 'technicians' && <TechnicianList onSelect={goToDetail} />}
         {screen === 'detail' && selectedTech && (

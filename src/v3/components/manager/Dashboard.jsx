@@ -9,16 +9,16 @@ const STATUS_STYLES = {
 
 export default function Dashboard({ onViewTech }) {
   return (
-    <div className="p-8 max-w-5xl">
+    <div className="p-8 h-full flex flex-col">
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-2xl font-black text-hcsg-navy">Dashboard</h1>
         <p className="text-sm text-hcsg-muted mt-1">Live field activity — Gulf Coast Region</p>
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
-        {/* Live queries — spans 2 columns */}
-        <section className="col-span-2">
+      <div className="grid grid-cols-[1fr_320px] gap-6 flex-1">
+        {/* Live queries */}
+        <section>
           <div className="flex items-center gap-2 mb-4">
             <Activity size={16} className="text-hcsg-orange" />
             <h2 className="font-bold text-hcsg-navy text-base">Live today</h2>
@@ -67,7 +67,7 @@ export default function Dashboard({ onViewTech }) {
         </section>
 
         {/* Top queries */}
-        <section className="col-span-1">
+        <section>
           <div className="flex items-center gap-2 mb-4">
             <TrendingUp size={16} className="text-hcsg-orange" />
             <h2 className="font-bold text-hcsg-navy text-base">Top queries</h2>

@@ -81,7 +81,7 @@ export default function ManagerSettings() {
   }
 
   return (
-    <div className="p-8 max-w-3xl">
+    <div className="p-8 max-w-3xl min-h-full">
       <div className="mb-8">
         <h1 className="text-2xl font-black text-hcsg-navy">Settings</h1>
         <p className="text-sm text-hcsg-muted mt-1">Document library and integrations</p>

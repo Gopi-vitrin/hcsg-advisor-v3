@@ -12,7 +12,7 @@ const RECENCY_STYLES = {
 
 export default function TechnicianList({ onSelect }) {
   return (
-    <div className="p-8 max-w-4xl">
+    <div className="p-8 h-full flex flex-col">
       <div className="mb-6">
         <h1 className="text-2xl font-black text-hcsg-navy">Technicians</h1>
         <p className="text-sm text-hcsg-muted mt-1">Gulf Coast Region · {TECHNICIANS.length} technicians</p>
